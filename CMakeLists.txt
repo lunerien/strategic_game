@@ -9,7 +9,10 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_executable(strategic_game
-        main.cpp)
+        main.cpp
+        app/units/WarUnit.cpp
+        app/units/WarUnit.h
+)
 
 target_compile_options(strategic_game PUBLIC -Werror -Wall -Wextra -Wpedantic)
 set(TESTS_BUILD_DISCOVER OFF CACHE BOOL "CppUTest Switch off Build time test discover" FORCE)
