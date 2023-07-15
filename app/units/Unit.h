@@ -5,24 +5,49 @@
 #ifndef STRATEGIC_GAME_UNIT_H
 #define STRATEGIC_GAME_UNIT_H
 #include "../utils/Coordinates.h"
+#include "UnitType.h"
+#include "Owner.h"
+#include "../Map.h"
+#include <string>
 
 //Interface type for unit handling
 class Unit {
+protected:
+    enum class UnitState
+    {
+        Standing,
+        GoingToTarget,
+        Fighting,
+        Dead
+    };
 public:
-    virtual void move(Coordinates coordinates) = 0;
-    virtual void attack(Coordinates coordinates, Unit& unit) = 0;
+//    virtual void move(Coordinates coordinates) = 0;
+//    virtual void attack(Coordinates coordinates, Unit& unit) = 0;
     virtual void takeHit(int attackPower) = 0;
+    virtual void update(Map map, std::vector<Unit> units) = 0;
 public:
-    virtual char getUnitSign() = 0;
+
     virtual int getActualStamina() = 0;
     virtual int getAttackRange() = 0;
+    virtual int getAttackPower(Unit *unit) = 0;
     virtual int getSpeed() = 0;
     virtual int getId() = 0;
     virtual int getPrice() = 0;
     virtual int getBuildTime() = 0;
+    virtual Owner getOwner() = 0;
     virtual Coordinates getActualLocation() = 0;
+    virtual UnitType getType() = 0;
+    virtual std::string dumpObject() = 0;
+    virtual char getUnitSign() = 0;
+    virtual void move(Coordinates coordinates) = 0;
+
+    virtual void attack(Unit &unit) = 0;
+//    State
+    virtual UnitState getState() = 0;
 public:
     virtual ~Unit() = default;
+
+
 };
 
 struct Stamina

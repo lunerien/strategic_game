@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.25.2)
 project(strategic_game)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -10,9 +10,13 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 add_executable(strategic_game
         main.cpp
+        app/Map.cpp
         app/units/WarUnit.cpp
-        app/units/WarUnit.h
-)
+        app/utils/Chance.cpp
+        app/units/WorkerUnit.cpp
+        app/units/UnitFactory.cpp
+        app/utils/Range.cpp
+        )
 
 target_compile_options(strategic_game PUBLIC -Werror -Wall -Wextra -Wpedantic)
 set(TESTS_BUILD_DISCOVER OFF CACHE BOOL "CppUTest Switch off Build time test discover" FORCE)
