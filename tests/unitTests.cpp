@@ -18,9 +18,9 @@ TEST_GROUP(UnitTestsGroup) {
                               {'0','0','0','0','0','0','0'}
                       });
         warUnit = new WarUnit(
-                Id{0}, Stamina{9}, AttackRange{1}, Speed{1}, Price{1}, BuildTime{1}, Coordinates{0, 0},
+                {Id{0}, Stamina{9}, AttackRange{1}, Speed{1}, Price{1}, BuildTime{1}, Coordinates{0, 0},
                 Owner{Owner::OwnerType::Player, 'P'}, UnitType{UnitType::Type::Knight, 'K'}, Coordinates{0, 0},
-                Coordinates{0, 0}, *map, 2
+                Coordinates{0, 0}, *map}, WarUnit::MeleState::ProtectingBase
         );
     }
 

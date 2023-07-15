@@ -16,7 +16,7 @@ Coordinates Range::closestToMove(Coordinates from, Coordinates to, int speed, Ma
 
 Coordinates Range::moveSingleField(Coordinates &to, int speed, Map *map, Coordinates &minDistance, int distanceToOpponent) {
     int minDistanceValue = INT_MAX;
-    int actDistanceValue = 0;
+    int actDistanceValue;
     Coordinates actMinDistance = minDistance;
     for (int x = actMinDistance.getX() - 1 ; x <= actMinDistance.getX() + 1; ++x) {
         for (int y = actMinDistance.getY() - 1; y <= actMinDistance.getY() + 1; ++y) {

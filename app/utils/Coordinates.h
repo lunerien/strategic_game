@@ -16,10 +16,21 @@ public:
         return x == rhs.x &&
                y == rhs.y;
     }
+    bool operator!=(const Coordinates& rhs) const{
+        return x != rhs.x &&
+               y != rhs.y;
+    }
+
+//    StringFrom()
+//    {
+//
+//    }
 private:
      int x;
      int y;
 };
+
+
 
 
 #endif //STRATEGIC_GAME_COORDINATES_H

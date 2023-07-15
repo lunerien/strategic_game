@@ -16,6 +16,7 @@ add_executable(strategic_game
         app/units/WorkerUnit.cpp
         app/units/UnitFactory.cpp
         app/utils/Range.cpp
+        app/units/BaseUnit.cpp
         )
 
 target_compile_options(strategic_game PUBLIC -Werror -Wall -Wextra -Wpedantic)
