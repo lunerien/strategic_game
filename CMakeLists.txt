@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.25.2)
 project(strategic_game)
+include(ctest)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -17,6 +18,7 @@ add_executable(strategic_game
         app/units/UnitFactory.cpp
         app/utils/Range.cpp
         app/units/BaseUnit.cpp
+        app/units/BaseBuildingUnit.cpp
         )
 
 target_compile_options(strategic_game PUBLIC -Werror -Wall -Wextra -Wpedantic)

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.25)
 project(strategic_game_tests)
-include(ctest)
+
 
 add_executable(strategic_game_tests
         testMain.cpp

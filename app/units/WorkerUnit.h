@@ -11,6 +11,7 @@
 #include <utility>
 
 class WorkerUnit : public BaseUnit {
+public:
     enum class WorkerState {
         GoingToMine,
         InMine,
@@ -22,7 +23,7 @@ class WorkerUnit : public BaseUnit {
 
     void update(Map map, std::vector<Unit> units) override;
 
-public:
+
 
     std::string dumpObject() override;
 
