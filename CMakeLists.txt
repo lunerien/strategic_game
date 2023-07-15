@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.25.2)
 project(strategic_game)
-include(ctest)
+include(CTest)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
