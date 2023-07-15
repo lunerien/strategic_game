@@ -3,6 +3,7 @@
 //
 
 #include "Range.h"
+#include <climits>
 
 Coordinates Range::closestToMove(Coordinates from, Coordinates to, int speed, Map *map, int distanceToOpponent) {
     Coordinates minDistance = from;
