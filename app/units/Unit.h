@@ -12,7 +12,12 @@
 
 //Interface type for unit handling
 class Unit {
-protected:
+public:
+//    virtual void move(Coordinates coordinates) = 0;
+//    virtual void attack(Coordinates coordinates, Unit& unit) = 0;
+    virtual void takeHit(int attackPower) = 0;
+    virtual void update(Map map, std::vector<Unit> units) = 0;
+
     enum class UnitState
     {
         Standing,
@@ -20,11 +25,6 @@ protected:
         Fighting,
         Dead
     };
-public:
-//    virtual void move(Coordinates coordinates) = 0;
-//    virtual void attack(Coordinates coordinates, Unit& unit) = 0;
-    virtual void takeHit(int attackPower) = 0;
-    virtual void update(Map map, std::vector<Unit> units) = 0;
 public:
 
     virtual int getActualStamina() = 0;
@@ -42,7 +42,11 @@ public:
     virtual void move(Coordinates coordinates) = 0;
 
     virtual void attack(Unit &unit) = 0;
-//    State
+    struct AttackStat
+    {
+        UnitType::Type unitType;
+        int attackPower;
+    };
     virtual UnitState getState() = 0;
 public:
     virtual ~Unit() = default;

@@ -63,11 +63,11 @@ UnitType BaseUnit::getType() {
 }
 
 std::string BaseUnit::dumpObject() {
-    return {std::to_string(type.getUnitSign()) + " " + std::to_string(ID) + " " + std::to_string(stamina) + " " +
+    return {std::string() + type.getUnitSign() + " " + std::to_string(ID) + " " + std::to_string(stamina) + " " +
             std::to_string(actualLocation.getX()) + " " + std::to_string(actualLocation.getY()) + " " +
             owner.getOwnerSign() + " " + std::to_string(targetLocation.getX()) + " " +
-            std::to_string(targetLocation.getY()) + " " +std::to_string(targetedLocationGlobalState.getX()) + " " +
-            std::to_string(targetedLocationGlobalState.getY()) + "\n"};
+            std::to_string(targetLocation.getY()) + " " + std::to_string(targetedLocationGlobalState.getX()) + " " +
+            std::to_string(targetedLocationGlobalState.getY()) + " " +  std::to_string(static_cast<int>(state))};
 }
 
 Unit::UnitState BaseUnit::getState() {
@@ -78,5 +78,5 @@ int BaseUnit::getAttackPower(Unit *) {
     return 0;
 }
 
-void BaseUnit::update(Map , std::vector<Unit> ) {
+void BaseUnit::update(Map, std::vector<Unit>) {
 }

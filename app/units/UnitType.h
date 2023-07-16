@@ -8,25 +8,25 @@
 
 class UnitType {
 public:
-    enum class Type : int
+    enum class Type : char
     {
-        Knight = 1,
-        Swordsman,
-        Archer,
-        Pikeman,
-        Ram,
-        Catapult,
-        Worker,
-        Base
+        Knight = 'K',
+        Swordsman = 'S',
+        Archer = 'A',
+        Pikeman = 'P',
+        Ram = 'R',
+        Catapult = 'C',
+        Worker = 'W',
+        Base = 'B'
     };
 
-    UnitType(Type type, char sign):type(type),sign(sign){}
+    UnitType(Type type):type(type){}
+    explicit UnitType(char type):type(static_cast<Type>(type)){}
 
-    virtual char getUnitSign(){return sign;}
+    virtual char getUnitSign(){return static_cast<char>(Type(type));}
     virtual Type getType(){return type;}
 private:
     Type type;
-    char sign;
 };
 
 

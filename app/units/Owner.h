@@ -8,20 +8,20 @@
 
 class Owner {
 public:
-    enum class OwnerType
+    enum class OwnerType: char
     {
-        Player,
-        Enemy
+        Player = 'P',
+        Enemy = 'E',
     };
 
-    Owner(OwnerType type, char ownerSign):type(type),ownerSign(ownerSign){}
+    explicit Owner(OwnerType type):type(type){}
+    explicit Owner(char type):type(static_cast<OwnerType>(type)){}
 
     OwnerType getOwner(){return type;}
-    char getOwnerSign() const{return ownerSign;}
+    char getOwnerSign() const{return static_cast<char>(OwnerType(type));}
 
 private:
     OwnerType type;
-    char ownerSign;
 };
 
 

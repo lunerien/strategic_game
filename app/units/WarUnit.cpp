@@ -12,5 +12,5 @@ void WarUnit::update(Map map, std::vector<Unit> units) {
 }
 
 std::string WarUnit::dumpObject() {
-    return BaseUnit::dumpObject() + std::to_string(static_cast<int>(meleState));
+    return BaseUnit::dumpObject() + " " + std::to_string(static_cast<int>(meleState));
 }

@@ -12,11 +12,11 @@ class BaseUnit : public Unit {
 public:
     BaseUnit(Id ID, Stamina stamina, AttackRange attackRange, Speed speed, Price price, BuildTime buildTime,
              Coordinates actualLocation, Owner owner, UnitType type, Coordinates targetedLocationGlobalState,
-             Coordinates targetLocation, Map &map, UnitState state = UnitState::Standing) :
+             Coordinates targetLocation, Map &map, std::vector<AttackStat> attackStats, UnitState state = UnitState::Standing) :
             ID(ID.ID), stamina(stamina.stamina), attackRange(attackRange.attackRange), speed(speed.Speed),
             price(price.price), buildTime(buildTime.BuildTime), actualLocation(actualLocation),
             owner(owner), type(std::move(type)), targetedLocationGlobalState(targetedLocationGlobalState),
-            targetLocation(targetLocation), state(state), map(map)
+            targetLocation(targetLocation), state(state), map(map), attackStats(std::move(attackStats))
     {}
 
     void update(Map map, std::vector<Unit> units) override;
@@ -68,6 +68,7 @@ private:
     Coordinates targetLocation;
     UnitState state;
     Map &map;
+    std::vector<AttackStat> attackStats;
 };
 
 
