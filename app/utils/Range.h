@@ -8,15 +8,20 @@
 
 #include "Coordinates.h"
 #include "../Map.h"
+#include "../units/Unit.h"
 
 class Range {
 public:
-    static Coordinates closestToMove(Coordinates from, Coordinates to, int speed, Map *map, int distanceToOpponent=0);
+    static Coordinates closestToMove(Coordinates from, Coordinates to, int speed, Map *map, int distanceToOpponent=0 ,
+                                     const std::vector <Unit*>& enemyUnits = {});
 
     static int countDistance(Coordinates from, Coordinates to);
 
     static Coordinates
-    moveSingleField(Coordinates &to, int speed, Map *map, Coordinates &minDistance, int distanceToOpponent);
+    moveSingleField(Coordinates &to, int movePoints, Map *map, Coordinates &minDistance, int attackRange,
+                    const std::vector <Unit*>& enemyUnits = {});
+
+    static bool isEnemyInPosition(Coordinates position, std::vector <Unit*> enemyUnits);
 };
 
 

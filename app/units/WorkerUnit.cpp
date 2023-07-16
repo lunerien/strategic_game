@@ -10,7 +10,7 @@ void WorkerUnit::update(Map map, std::vector<Unit> units) {
 }
 
 std::string WorkerUnit::dumpObject() {
-    return BaseUnit::dumpObject() + std::to_string(static_cast<int>(workerState));
+    return BaseUnit::dumpObject() + " " + std::to_string(static_cast<int>(workerState));
 }
 
 

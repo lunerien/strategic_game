@@ -6,7 +6,12 @@ add_executable(rangeTests
         testMain.cpp
         rangeTests.cpp
         ../app/utils/Range.cpp
-        ../app/Map.cpp)
+        ../app/Map.cpp
+        ../app/units/WarUnit.cpp
+        ../app/units/BaseUnit.cpp
+        ../app/units/UnitFactory.cpp
+        ../app/units/WorkerUnit.cpp
+        ../app/units/BaseBuildingUnit.cpp)
 target_compile_options(rangeTests PUBLIC -Werror -Wall -Wextra -Wpedantic)
 target_link_libraries(rangeTests PRIVATE CppUTest)
 
