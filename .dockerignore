@@ -1,0 +1,8 @@
+.git
+.github
+cmake-build-debug
+README.md
+.dockerignore
+Dockerfile
+.gitignore
+.gitmodules
