@@ -8,28 +8,19 @@
 
 class Action {
 public:
-    enum class Type
-    {
-        Move,
-        Attack,
-        TakeHit,
-        GetUnitSign,
-        GetActualStamina,
-        GetAttackRange,
-        GetSpeed,
-        GetId,
-        GetPrice,
-        GetBuildTime,
-        GetActualLocation,
-        GetType
-    };
+    static std::string createMoveAction(Id id, Coordinates coordinates){
+        return std::to_string(id.ID) + " " + 'M' + " " + std::to_string(coordinates.getX()) + " " + std::to_string(coordinates.getY());
+    }
 
-    Action(Action::Type type):type(type){}
+    static std::string createAttackAction(Id id, Id idTarget){
+        return std::to_string(id.ID) + " " +'A' + " " + std::to_string(idTarget.ID);
+    }
 
-    Type getType(){return type;}
-private:
-    Type type;
-    int chance;
+    static std::string createBuildAction(Id id, UnitType unitType){
+        return std::to_string(id.ID) + " " +  'B' + " " + unitType.getUnitSign();
+    }
+
+
 };
 
 

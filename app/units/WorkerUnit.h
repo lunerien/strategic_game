@@ -21,11 +21,10 @@ public:
 
     WorkerUnit(BaseUnit baseUnit, WorkerState workerState) : BaseUnit(baseUnit), workerState(workerState) {}
 
-    void update(Map map, std::vector<Unit> units) override;
+    void update() override;
 
 
-
-    std::string dumpObject() override;
+    std::string dumpObjectAdditionalInfo() override;
 
     int getAttackPower(Unit *unit) override;
 

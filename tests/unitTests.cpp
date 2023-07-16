@@ -19,11 +19,9 @@ TEST_GROUP(UnitTestsGroup) {
                               {'0', '0', '0', '0', '0', '0', '0'}
                       });
 
-        unitFactory = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy},
-                                      UnitFactory::FactoryState::Idle, *map);
+        unitFactory = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy}, *map);
 
-        unitFactoryForLoading = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy},
-                                      UnitFactory::FactoryState::Idle, *map);
+        unitFactoryForLoading = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy},*map);
 
         warUnit = dynamic_cast<WarUnit *>(unitFactory->createUnit(UnitType::Type::Knight,
                                                                   Owner{Owner::OwnerType::Player},
@@ -68,9 +66,10 @@ TEST(UnitTestsGroup, correctIdAssignmentTest) {
 TEST(UnitTestsGroup, dumpWarUnitLoadTest) {
     CHECK(warUnit);
     std::string dump = warUnit->dumpObject();
+    std::string additionalInfo = warUnit->dumpObjectAdditionalInfo();
     //Try to add unit with duplicated ID
-    CHECK_THROWS(std::invalid_argument,unitFactory->createUnit(dump));
-    Unit *loadedUnit = unitFactoryForLoading->createUnit(dump);
+    CHECK_THROWS(std::invalid_argument, unitFactory->createUnit(dump, additionalInfo));
+    Unit *loadedUnit = unitFactoryForLoading->createUnit(dump, additionalInfo);
     //Check if loaded unit is not null - load should be successful
     CHECK(loadedUnit);
     CHECK_EQUAL(dump, loadedUnit->dumpObject());
@@ -79,9 +78,10 @@ TEST(UnitTestsGroup, dumpWarUnitLoadTest) {
 TEST(UnitTestsGroup, dumpWorkersLoadTest) {
     CHECK(workerUnit);
     std::string dump = workerUnit->dumpObject();
+    std::string additionalInfo = workerUnit->dumpObjectAdditionalInfo();
     //Try to add unit with duplicated ID
-    CHECK_THROWS(std::invalid_argument,unitFactory->createUnit(dump));
-    Unit *loadedUnit = unitFactoryForLoading->createUnit(dump);
+    CHECK_THROWS(std::invalid_argument,unitFactory->createUnit(dump, additionalInfo));
+    Unit *loadedUnit = unitFactoryForLoading->createUnit(dump, additionalInfo);
     //Check if loaded unit is not null - load should be successful
     CHECK(loadedUnit);
     CHECK_EQUAL(dump, loadedUnit->dumpObject());
@@ -90,9 +90,10 @@ TEST(UnitTestsGroup, dumpWorkersLoadTest) {
 TEST(UnitTestsGroup, dumpBaseLoadTest) {
     CHECK(baseUnit);
     std::string dump = baseUnit->dumpObject();
+    std::string additionalInfo = baseUnit->dumpObjectAdditionalInfo();
     //Try to add unit with duplicated ID
-    CHECK_THROWS(std::invalid_argument,unitFactory->createUnit(dump));
-    Unit *loadedUnit = unitFactoryForLoading->createUnit(dump);
+    CHECK_THROWS(std::invalid_argument,unitFactory->createUnit(dump, additionalInfo));
+    Unit *loadedUnit = unitFactoryForLoading->createUnit(dump, additionalInfo);
     //Check if loaded unit is not null - load should be successful
     CHECK(loadedUnit);
     CHECK_EQUAL(dump, loadedUnit->dumpObject());

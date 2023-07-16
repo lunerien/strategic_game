@@ -9,6 +9,7 @@
 
 TEST_GROUP(RangeTestsGroup) {
     void setup() {
+
         map = new Map({
                               {'0', '0', '0', '0', '0', '0', '0'},
                               {'0', '0', '0', '0', '0', '0', '0'},
@@ -18,12 +19,15 @@ TEST_GROUP(RangeTestsGroup) {
                               {'0', '0', '0', '0', '0', '0', '0'},
                               {'0', '0', '0', '0', '0', '0', '0'}
                       });
+
+        unitFactory = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy}, *map);
     }
 
     void teardown() {
         delete map;
+        delete unitFactory;
     }
-
+    UnitFactory *unitFactory;
     Map *map;
 };
 
@@ -31,9 +35,9 @@ TEST_GROUP(RangeTestsGroup) {
 TEST(RangeTestsGroup, moveTest) {
     auto targetedLocation = Coordinates(7, 7);
     auto startLocation = Coordinates(0, 0);
-    auto expectedEndLocation = Coordinates(4, 4);
+    auto expectedEndLocation = Coordinates(6, 6);
 
-    auto returnCoordinates = Range::closestToMove(startLocation, targetedLocation, 4, map);
+    auto returnCoordinates = Range::closestToMove(startLocation, targetedLocation, 5, map);
     CHECK_EQUAL(expectedEndLocation.getX(), returnCoordinates.getX());
     CHECK_EQUAL(expectedEndLocation.getY(), returnCoordinates.getY());
 }
@@ -56,8 +60,7 @@ TEST(RangeTestsGroup, moveTestToOponentAndEnemyUnitColliding) {
     auto expectedEndLocation = Coordinates(6, 5);
     auto speed = 8;
     auto range = 3;
-    auto unitFactory = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy},
-                                       UnitFactory::FactoryState::Idle, *map);
+
     static_cast<void>(dynamic_cast<WorkerUnit *>(unitFactory->createUnit(UnitType::Type::Worker,
                                                        Owner{Owner::OwnerType::Enemy},
                                                        Coordinates{5, 6}, Coordinates{5, 6},
@@ -68,5 +71,4 @@ TEST(RangeTestsGroup, moveTestToOponentAndEnemyUnitColliding) {
     CHECK_EQUAL(expectedEndLocation.getX(), returnCoordinates.getX());
     CHECK_EQUAL(expectedEndLocation.getY(), returnCoordinates.getY());
     CHECK_EQUAL(range, Range::countDistance(returnCoordinates, targetedLocation));
-    delete unitFactory;
 }

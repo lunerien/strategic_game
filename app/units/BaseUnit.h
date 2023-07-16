@@ -5,27 +5,25 @@
 #ifndef BASEUNIT_H_03FC5B71258B4CB4BA456992EE01C35A
 #define BASEUNIT_H_03FC5B71258B4CB4BA456992EE01C35A
 
-
 #include "Unit.h"
 
 class BaseUnit : public Unit {
 public:
     BaseUnit(Id ID, Stamina stamina, AttackRange attackRange, Speed speed, Price price, BuildTime buildTime,
              Coordinates actualLocation, Owner owner, UnitType type, Coordinates targetedLocationGlobalState,
-             Coordinates targetLocation, Map &map, std::vector<AttackStat> attackStats, UnitState state = UnitState::Standing) :
+             Coordinates targetLocation, Map &map, std::vector<AttackStat> attackStats,
+             std::vector<Unit *> &unitsPlayer, std::vector<Unit *> &unitsEnemy, UnitState state = UnitState::Standing) :
             ID(ID.ID), stamina(stamina.stamina), attackRange(attackRange.attackRange), speed(speed.Speed),
             price(price.price), buildTime(buildTime.BuildTime), actualLocation(actualLocation),
             owner(owner), type(std::move(type)), targetedLocationGlobalState(targetedLocationGlobalState),
-            targetLocation(targetLocation), state(state), map(map), attackStats(std::move(attackStats))
-    {}
+            targetLocation(targetLocation), state(state), map(map), attackStats(std::move(attackStats)),
+            unitsPlayer(unitsPlayer), unitsEnemy(unitsEnemy) {}
 
-    void update(Map map, std::vector<Unit> units) override;
+    void update() override;
 
     Owner getOwner() override;
 
     UnitType getType() override;
-
-    std::string dumpObject() override;
 
     void move(Coordinates coordinates) override;
 
@@ -53,6 +51,12 @@ public:
 
     int getAttackPower(Unit *unit) override;
 
+    std::string dumpObject() override;
+
+    std::string dumpObjectAction() override;
+
+    std::string dumpObjectAdditionalInfo() override;
+
 private:
 
     int ID;
@@ -69,6 +73,9 @@ private:
     UnitState state;
     Map &map;
     std::vector<AttackStat> attackStats;
+    std::vector<std::string> actions;
+    std::vector<Unit *> &unitsPlayer;
+    std::vector<Unit *> &unitsEnemy;
 };
 
 

@@ -22,9 +22,9 @@ public:
     WarUnit(BaseUnit baseUnit, MeleState meleState): BaseUnit(baseUnit) , meleState(meleState)
     {}
 
-    std::string dumpObject() override;
+    std::string dumpObjectAdditionalInfo() override;
 
-    void update(Map map, std::vector<Unit> units) override;
+    void update() override;
     ~WarUnit() override = default;
 
 

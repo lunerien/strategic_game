@@ -4,13 +4,16 @@
 
 #include "BaseUnit.h"
 #include "../utils/Range.h"
+#include "../Action.h"
 
 void BaseUnit::move(Coordinates coordinates) {
     actualLocation = Range::closestToMove(actualLocation, coordinates, speed, &map);
+    actions.emplace_back(Action::createMoveAction(Id{ID}, coordinates));
 }
 
 void BaseUnit::attack(Unit &unit) {
     unit.takeHit(getAttackPower(&unit));
+    actions.emplace_back(Action::createAttackAction(Id{ID}, Id{unit.getId()}));
 }
 
 void BaseUnit::takeHit(int opponentAttackPower) {
@@ -62,13 +65,6 @@ UnitType BaseUnit::getType() {
     return type;
 }
 
-std::string BaseUnit::dumpObject() {
-    return {std::string() + type.getUnitSign() + " " + std::to_string(ID) + " " + std::to_string(stamina) + " " +
-            std::to_string(actualLocation.getX()) + " " + std::to_string(actualLocation.getY()) + " " +
-            owner.getOwnerSign() + " " + std::to_string(targetLocation.getX()) + " " +
-            std::to_string(targetLocation.getY()) + " " + std::to_string(targetedLocationGlobalState.getX()) + " " +
-            std::to_string(targetedLocationGlobalState.getY()) + " " +  std::to_string(static_cast<int>(state))};
-}
 
 Unit::UnitState BaseUnit::getState() {
     return state;
@@ -78,5 +74,26 @@ int BaseUnit::getAttackPower(Unit *) {
     return 0;
 }
 
-void BaseUnit::update(Map, std::vector<Unit>) {
+void BaseUnit::update() {
+}
+
+std::string BaseUnit::dumpObject() {
+    return std::string() + owner.getOwnerSign() + " " + type.getUnitSign() + " " + std::to_string(ID) + " " +
+           std::to_string(actualLocation.getX()) + " " + std::to_string(actualLocation.getY()) + " " +
+           std::to_string(stamina);
+
+}
+
+std::string BaseUnit::dumpObjectAction() {
+    std::string actionsStrings;
+    for (const auto& actionString: actions) {
+        actionsStrings += actionString + "\n";
+    }
+    return actionsStrings;
+}
+
+std::string BaseUnit::dumpObjectAdditionalInfo() {
+    return {std::to_string(ID) + " " + std::to_string(targetLocation.getX()) + " " +
+            std::to_string(targetLocation.getY()) + " " + std::to_string(targetedLocationGlobalState.getX()) + " " +
+            std::to_string(targetedLocationGlobalState.getY()) + " " + std::to_string(static_cast<int>(state))};
 }

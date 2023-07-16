@@ -13,14 +13,10 @@
 
 class UnitFactory {
 public:
-    enum class FactoryState {
-        Idle,
-        Building
-    };
 
-    UnitFactory(Owner ownerPlayer, Owner ownerEnemy, FactoryState factoryState, Map map) :
+    UnitFactory(Owner ownerPlayer, Owner ownerEnemy, Map map) :
             playersUnits({std::vector<Unit*>(), ownerPlayer}), enemyUnits({std::vector<Unit*>(), ownerEnemy}),
-            factoryState(factoryState), map(std::move(map)) {}
+            map(std::move(map)) {}
 
     void update();
 
@@ -36,7 +32,7 @@ public:
                      Coordinates targetedLocationGlobalState, Coordinates targetLocation,
                      int unitTypeState, Unit::UnitState unitState, Stamina stamina = Stamina{0}, Id id = Id{-1});
 
-    Unit *createUnit(const std::string& unitString);
+    Unit *createUnit(const std::string& unitString, const std::string& unitAdditionalInfo);
 
     Unit *createBase(Owner owner, Coordinates actualLocation, Coordinates targetedLocationGlobalState,
                      Coordinates targetLocation, int unitTypeState, Unit::UnitState unitState,
@@ -58,9 +54,6 @@ private:
     SideUnits playersUnits;
     SideUnits enemyUnits;
 
-
-
-    FactoryState factoryState;
     Map map;
 
 

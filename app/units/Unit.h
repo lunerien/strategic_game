@@ -16,7 +16,7 @@ public:
 //    virtual void move(Coordinates coordinates) = 0;
 //    virtual void attack(Coordinates coordinates, Unit& unit) = 0;
     virtual void takeHit(int attackPower) = 0;
-    virtual void update(Map map, std::vector<Unit> units) = 0;
+    virtual void update() = 0;
 
     enum class UnitState
     {
@@ -38,6 +38,8 @@ public:
     virtual Coordinates getActualLocation() = 0;
     virtual UnitType getType() = 0;
     virtual std::string dumpObject() = 0;
+    virtual std::string dumpObjectAction() = 0;
+    virtual std::string dumpObjectAdditionalInfo() = 0;
     virtual char getUnitSign() = 0;
     virtual void move(Coordinates coordinates) = 0;
 

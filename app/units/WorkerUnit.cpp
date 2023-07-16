@@ -4,13 +4,8 @@
 
 #include "WorkerUnit.h"
 
-void WorkerUnit::update(Map map, std::vector<Unit> units) {
-    (void) map;
-    (void) units;
-}
+void WorkerUnit::update() {
 
-std::string WorkerUnit::dumpObject() {
-    return BaseUnit::dumpObject() + " " + std::to_string(static_cast<int>(workerState));
 }
 
 
@@ -21,5 +16,9 @@ int WorkerUnit::getAttackPower(Unit *unit) {
         default:
             return 5;
     }
+}
+
+std::string WorkerUnit::dumpObjectAdditionalInfo() {
+    return BaseUnit::dumpObjectAdditionalInfo()  + " " + std::to_string(static_cast<int>(workerState));
 }
 

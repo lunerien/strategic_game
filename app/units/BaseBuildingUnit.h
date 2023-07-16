@@ -9,22 +9,31 @@
 #include <utility>
 
 #include "BaseUnit.h"
+#include "UnitFactory.h"
 
-class BaseBuildingUnit : public BaseUnit{
+class BaseBuildingUnit : public BaseUnit {
 public:
     enum class BaseBuildingState {
         CreatingUnit,
         Idle
     };
 
-    BaseBuildingUnit(BaseUnit baseUnit, BaseBuildingState baseBuildingState, UnitType actualUnitBeingCreatedType, int timeLeftToCreateUnit ) :
-    BaseUnit(std::move(baseUnit)), baseBuildingState(baseBuildingState), actualUnitBeingCreatedType(std::move(actualUnitBeingCreatedType)),
-    timeLeftToCreateUnit(timeLeftToCreateUnit){}
+    BaseBuildingUnit(BaseUnit baseUnit, BaseBuildingState baseBuildingState, UnitType actualUnitBeingCreatedType,
+                     int timeLeftToCreateUnit, UnitFactory &unitFactory) :
+            BaseUnit(std::move(baseUnit)), unitFactory(unitFactory), baseBuildingState(baseBuildingState),
+            actualUnitBeingCreatedType(std::move(actualUnitBeingCreatedType)),
+            timeLeftToCreateUnit(timeLeftToCreateUnit) {}
 
-    void update(Map map, std::vector<Unit> units) override;
+    void update() override;
 
     std::string dumpObject() override;
+
+    std::string dumpObjectAction() override;
+
+    std::string dumpObjectAdditionalInfo() override;
+
 private:
+    UnitFactory &unitFactory;
     BaseBuildingState baseBuildingState;
     UnitType actualUnitBeingCreatedType;
     int timeLeftToCreateUnit;

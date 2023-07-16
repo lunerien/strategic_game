@@ -20,8 +20,7 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
     } else {
         newId = id.ID;
     }
-    if(!isIdAvailable(newId))
-    {
+    if (!isIdAvailable(newId)) {
         throw std::invalid_argument("Id is not available");
     }
 
@@ -39,7 +38,8 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
                      targetedLocationGlobalState, targetLocation, map,
                      {{UnitType::Type::Knight, 5}, {UnitType::Type::Swordsman, 5}, {UnitType::Type::Archer, 5},
                       {UnitType::Type::Pikeman, 5}, {UnitType::Type::Catapult, 5}, {UnitType::Type::Ram, 5},
-                      {UnitType::Type::Worker, 5}, {UnitType::Type::Base, 1}}, unitState},
+                      {UnitType::Type::Worker, 5}, {UnitType::Type::Base, 1}}, playersUnits.units,
+                     enemyUnits.units, unitState},
                     static_cast<WorkerUnit::WorkerState>(unitTypeState));
             break;
         }
@@ -54,7 +54,8 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
                      targetedLocationGlobalState, targetLocation, map,
                      {{UnitType::Type::Knight, 35}, {UnitType::Type::Swordsman, 35}, {UnitType::Type::Archer, 35},
                       {UnitType::Type::Pikeman, 35}, {UnitType::Type::Catapult, 35}, {UnitType::Type::Ram, 50},
-                      {UnitType::Type::Worker, 35}, {UnitType::Type::Base, 35}}, unitState},
+                      {UnitType::Type::Worker, 35}, {UnitType::Type::Base, 35}}, playersUnits.units,
+                     enemyUnits.units, unitState},
                     static_cast<WarUnit::MeleState>(unitTypeState));
             break;
         }
@@ -69,7 +70,8 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
                      targetedLocationGlobalState, targetLocation, map,
                      {{UnitType::Type::Knight, 30}, {UnitType::Type::Swordsman, 30}, {UnitType::Type::Archer, 30},
                       {UnitType::Type::Pikeman, 20}, {UnitType::Type::Catapult, 20}, {UnitType::Type::Ram, 30},
-                      {UnitType::Type::Worker, 30}, {UnitType::Type::Base, 30}}, unitState},
+                      {UnitType::Type::Worker, 30}, {UnitType::Type::Base, 30}}, playersUnits.units,
+                     enemyUnits.units, unitState},
                     static_cast<WarUnit::MeleState>(unitTypeState));
             break;
         }
@@ -84,7 +86,8 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
                      targetedLocationGlobalState, targetLocation, map,
                      {{UnitType::Type::Knight, 15}, {UnitType::Type::Swordsman, 15}, {UnitType::Type::Archer, 15},
                       {UnitType::Type::Pikeman, 15}, {UnitType::Type::Catapult, 10}, {UnitType::Type::Ram, 10},
-                      {UnitType::Type::Worker, 15}, {UnitType::Type::Base, 1}}, unitState},
+                      {UnitType::Type::Worker, 15}, {UnitType::Type::Base, 1}}, playersUnits.units,
+                     enemyUnits.units, unitState},
                     static_cast<WarUnit::MeleState>(unitTypeState));
             break;
         }
@@ -100,7 +103,8 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
                      targetedLocationGlobalState, targetLocation, map,
                      {{UnitType::Type::Knight, 35}, {UnitType::Type::Swordsman, 15}, {UnitType::Type::Archer, 15},
                       {UnitType::Type::Pikeman, 15}, {UnitType::Type::Catapult, 15}, {UnitType::Type::Ram, 10},
-                      {UnitType::Type::Worker, 15}, {UnitType::Type::Base, 10}}, unitState},
+                      {UnitType::Type::Worker, 15}, {UnitType::Type::Base, 10}}, playersUnits.units,
+                     enemyUnits.units, unitState},
                     static_cast<WarUnit::MeleState>(unitTypeState));
             break;
         }
@@ -116,7 +120,8 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
                      targetedLocationGlobalState, targetLocation, map,
                      {{UnitType::Type::Knight, 10}, {UnitType::Type::Swordsman, 10}, {UnitType::Type::Archer, 10},
                       {UnitType::Type::Pikeman, 10}, {UnitType::Type::Catapult, 10}, {UnitType::Type::Ram, 10},
-                      {UnitType::Type::Worker, 10}, {UnitType::Type::Base, 50}}, unitState},
+                      {UnitType::Type::Worker, 10}, {UnitType::Type::Base, 50}}, playersUnits.units,
+                     enemyUnits.units, unitState},
                     static_cast<WarUnit::MeleState>(unitTypeState));
             break;
         }
@@ -132,7 +137,8 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
                      targetedLocationGlobalState, targetLocation, map,
                      {{UnitType::Type::Knight, 40}, {UnitType::Type::Swordsman, 40}, {UnitType::Type::Archer, 40},
                       {UnitType::Type::Pikeman, 40}, {UnitType::Type::Catapult, 40}, {UnitType::Type::Ram, 40},
-                      {UnitType::Type::Worker, 40}, {UnitType::Type::Base, 50}}, unitState},
+                      {UnitType::Type::Worker, 40}, {UnitType::Type::Base, 50}}, playersUnits.units,
+                     enemyUnits.units, unitState},
                     static_cast<WarUnit::MeleState>(unitTypeState));
             break;
         }
@@ -144,8 +150,7 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
     }
     if (owner.getOwner() == Owner::OwnerType::Player) {
         playersUnits.units.push_back(newUnit);
-    }else
-    {
+    } else {
         enemyUnits.units.push_back(newUnit);
     }
     return newUnit;
@@ -212,8 +217,7 @@ UnitFactory::createBase(Owner owner, Coordinates actualLocation, Coordinates tar
     } else {
         newId = id.ID;
     }
-    if(!isIdAvailable(newId))
-    {
+    if (!isIdAvailable(newId)) {
         throw std::invalid_argument("Id is not available");
     }
     int unitStamina = 200;
@@ -236,9 +240,9 @@ UnitFactory::createBase(Owner owner, Coordinates actualLocation, Coordinates tar
              targetedLocationGlobalState, targetLocation, map,
              {{UnitType::Type::Knight, 0}, {UnitType::Type::Swordsman, 0}, {UnitType::Type::Archer, 0},
               {UnitType::Type::Pikeman, 0}, {UnitType::Type::Catapult, 0}, {UnitType::Type::Ram, 0},
-              {UnitType::Type::Worker, 0}, {UnitType::Type::Base, 0}}, unitState},
+              {UnitType::Type::Worker, 0}, {UnitType::Type::Base, 0}}, playersUnits.units, enemyUnits.units, unitState},
             static_cast<BaseBuildingUnit::BaseBuildingState>(unitTypeState), std::move(actualUnitBeingCreatedType),
-            timeLeftToCreateUnit);
+            timeLeftToCreateUnit, *this);
     if (owner.getOwner() == Owner::OwnerType::Player) {
         playersUnits.units.push_back(newBase);
     } else {
@@ -247,32 +251,47 @@ UnitFactory::createBase(Owner owner, Coordinates actualLocation, Coordinates tar
     return newBase;
 }
 
-Unit *UnitFactory::createUnit(const std::string &unitString) {
+Unit *UnitFactory::createUnit(const std::string &unitString, const std::string &unitAdditionalInfo) {
     std::vector<std::string> unitStringSplit;
-    auto iss = std::istringstream{unitString};
-    auto str = std::string{};
+    std::vector<std::string> unitAdditionalInfoStringSplit;
+    auto tokenizedUnitString = std::istringstream{unitString};
+    auto tokenizedUnitAdditionalInfo = std::istringstream{unitAdditionalInfo};
+    auto stringToken = std::string{};
 
-    //Tokenize string by space
-    while (iss >> str) {
-        unitStringSplit.push_back(str);
+    //Tokenize unit string by space
+    while (tokenizedUnitString >> stringToken) {
+        unitStringSplit.push_back(stringToken);
     }
 
-    //Set unit parameters
-    UnitType type(unitStringSplit[0][0]);
-    Id id{std::stoi(unitStringSplit[1])};
-    Stamina stamina{std::stoi(unitStringSplit[2])};
+    //Tokenize unit additional info string by space
+    while (tokenizedUnitAdditionalInfo >> stringToken) {
+        unitAdditionalInfoStringSplit.push_back(stringToken);
+    }
+
+    //Set unit parameters from unit string
+    Owner owner{unitStringSplit[0][0]};
+    UnitType type(unitStringSplit[1][0]);
+    Id id{std::stoi(unitStringSplit[2])};
     Coordinates actualLocation{std::stoi(unitStringSplit[3]), std::stoi(unitStringSplit[4])};
-    Owner owner{unitStringSplit[5][0]};
-    Coordinates targetedLocation{std::stoi(unitStringSplit[6]), std::stoi(unitStringSplit[7])};
-    Coordinates targetLocationGlobalState{std::stoi(unitStringSplit[8]), std::stoi(unitStringSplit[9])};
-    auto unitState = static_cast<Unit::UnitState>(std::stoi(unitStringSplit[10]));
-    int unitTypeState = std::stoi(unitStringSplit[11]);
+    Stamina stamina{std::stoi(unitStringSplit[5])};
+
+
+    //Set unit parameters from unit additional info string
+//    Id id{std::stoi(unitAdditionalInfoStringSplit[0])};
+    Coordinates targetedLocation{std::stoi(unitAdditionalInfoStringSplit[1]),
+                                 std::stoi(unitAdditionalInfoStringSplit[2])};
+    Coordinates targetLocationGlobalState{std::stoi(unitAdditionalInfoStringSplit[3]),
+                                          std::stoi(unitAdditionalInfoStringSplit[4])};
+    auto unitState = static_cast<Unit::UnitState>(std::stoi(unitAdditionalInfoStringSplit[5]));
+    int unitTypeState = std::stoi(unitAdditionalInfoStringSplit[6]);
+
     if (type.getType() == UnitType::Type::Base) {
-        UnitType actualUnitBeingCreatedType(unitStringSplit[12][0]);
-        int timeLeftToCreateUnit = std::stoi(unitStringSplit[13]);
+        UnitType actualUnitBeingCreatedType(unitStringSplit[6][0]);
+        int timeLeftToCreateUnit = std::stoi(unitAdditionalInfoStringSplit[7]);
         return createBase(owner, actualLocation, targetLocationGlobalState, targetedLocation, unitTypeState, unitState,
                           timeLeftToCreateUnit, actualUnitBeingCreatedType, stamina, id);
     }
+
     return createUnit(type.getType(), owner, actualLocation, targetLocationGlobalState, targetedLocation, unitTypeState,
                       unitState, stamina, id);
 }
