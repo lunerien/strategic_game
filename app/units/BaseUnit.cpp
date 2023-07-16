@@ -7,13 +7,20 @@
 #include "../Action.h"
 
 void BaseUnit::move(Coordinates coordinates) {
-    actualLocation = Range::closestToMove(actualLocation, coordinates, speed, &map);
-    actions.emplace_back(Action::createMoveAction(Id{ID}, coordinates));
+    if (movesLeft) {
+        auto destLocation = Range::closestToMove(actualLocation, coordinates, speed, &map);
+        actualLocation = destLocation;
+        movesLeft -= Range::countDistance(actualLocation, destLocation);
+        actions.emplace_back(Action::createMoveAction(Id{ID}, coordinates));
+    }
 }
 
 void BaseUnit::attack(Unit &unit) {
-    unit.takeHit(getAttackPower(&unit));
-    actions.emplace_back(Action::createAttackAction(Id{ID}, Id{unit.getId()}));
+    if(movesLeft){
+        unit.takeHit(getAttackPower(&unit));
+        actions.emplace_back(Action::createAttackAction(Id{ID}, Id{unit.getId()}));
+        movesLeft = 0;
+    }
 }
 
 void BaseUnit::takeHit(int opponentAttackPower) {
@@ -71,7 +78,7 @@ Unit::UnitState BaseUnit::getState() {
 }
 
 int BaseUnit::getAttackPower(Unit *) {
-    return 0;
+    return attackPowers[type.getType()];
 }
 
 void BaseUnit::update() {
@@ -96,4 +103,8 @@ std::string BaseUnit::dumpObjectAdditionalInfo() {
     return {std::to_string(ID) + " " + std::to_string(targetLocation.getX()) + " " +
             std::to_string(targetLocation.getY()) + " " + std::to_string(targetedLocationGlobalState.getX()) + " " +
             std::to_string(targetedLocationGlobalState.getY()) + " " + std::to_string(static_cast<int>(state))};
+}
+
+int BaseUnit::getDistanceToTarget() {
+    return Range::countDistance(actualLocation, targetLocation);
 }

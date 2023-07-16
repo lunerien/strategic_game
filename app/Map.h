@@ -16,10 +16,12 @@ public:
 
     bool isObstacle(Coordinates coordinates);
     bool isInMap(Coordinates coordinates);
+    std::vector<Coordinates> getMines();
     Coordinates playerBaseCoordinates;
     Coordinates enemyBaseCoordinates;
 private:
     const std::vector<std::vector<char>> map;
+    std::vector<Coordinates> mines;
 
 
 

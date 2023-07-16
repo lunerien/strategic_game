@@ -14,9 +14,9 @@
 class UnitFactory {
 public:
 
-    UnitFactory(Owner ownerPlayer, Owner ownerEnemy, Map map) :
+    UnitFactory(Owner ownerPlayer, Owner ownerEnemy, Map map, GoldStash &goldStash) :
             playersUnits({std::vector<Unit*>(), ownerPlayer}), enemyUnits({std::vector<Unit*>(), ownerEnemy}),
-            map(std::move(map)) {}
+            map(std::move(map)), goldStash(goldStash) {}
 
     void update();
 
@@ -30,7 +30,7 @@ public:
 
     Unit *createUnit(UnitType::Type type, Owner owner, Coordinates actualLocation,
                      Coordinates targetedLocationGlobalState, Coordinates targetLocation,
-                     int unitTypeState, Unit::UnitState unitState, Stamina stamina = Stamina{0}, Id id = Id{-1});
+                     int unitTypeState = 0, Unit::UnitState unitState = Unit::UnitState::Standing, Stamina stamina = Stamina{0}, Id id = Id{-1});
 
     Unit *createUnit(const std::string& unitString, const std::string& unitAdditionalInfo);
 
@@ -54,8 +54,9 @@ private:
     SideUnits playersUnits;
     SideUnits enemyUnits;
 
-    Map map;
 
+    Map map;
+    GoldStash &goldStash;
 
 };
 

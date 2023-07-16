@@ -8,6 +8,7 @@
 
 #include "../Map.h"
 #include "BaseUnit.h"
+#include "../GoldStash.h"
 #include <utility>
 
 class WorkerUnit : public BaseUnit {
@@ -19,7 +20,8 @@ public:
         FightingBase
     };
 
-    WorkerUnit(BaseUnit baseUnit, WorkerState workerState) : BaseUnit(baseUnit), workerState(workerState) {}
+    WorkerUnit(BaseUnit baseUnit, WorkerState workerState, GoldStash &goldStash) :
+            BaseUnit(baseUnit), workerState(workerState), goldStash(goldStash) {}
 
     void update() override;
 
@@ -30,6 +32,7 @@ public:
 
 private:
     WorkerState workerState;
+    GoldStash &goldStash;
 };
 
 

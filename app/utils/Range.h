@@ -9,6 +9,7 @@
 #include "Coordinates.h"
 #include "../Map.h"
 #include "../units/Unit.h"
+#include "../units/BaseUnit.h"
 
 class Range {
 public:
@@ -22,6 +23,9 @@ public:
                     const std::vector <Unit*>& enemyUnits = {});
 
     static bool isEnemyInPosition(Coordinates position, std::vector <Unit*> enemyUnits);
+    static Unit* getClosestEnemy(Coordinates from, std::vector <Unit*> enemyUnits);
+    static Coordinates getClosestMine(Coordinates from, Map& map);
+    static bool isMineInPosition(Coordinates position, Map& map);
 };
 
 

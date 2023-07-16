@@ -42,13 +42,13 @@ public:
     virtual std::string dumpObjectAdditionalInfo() = 0;
     virtual char getUnitSign() = 0;
     virtual void move(Coordinates coordinates) = 0;
-
+    virtual int getDistanceToTarget() = 0;
     virtual void attack(Unit &unit) = 0;
-    struct AttackStat
-    {
-        UnitType::Type unitType;
-        int attackPower;
-    };
+//    struct AttackStat
+//    {
+//        UnitType::Type unitType;
+//        int attackPower;
+//    };
     virtual UnitState getState() = 0;
 public:
     virtual ~Unit() = default;

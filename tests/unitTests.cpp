@@ -4,8 +4,8 @@
 
 #include <iostream>
 #include "../app/units/WarUnit.h"
-#include "CppUTest/TestHarness.h"
 #include "../app/units/UnitFactory.h"
+#include "CppUTest/TestHarness.h"
 
 TEST_GROUP(UnitTestsGroup) {
     void setup() {
@@ -19,9 +19,10 @@ TEST_GROUP(UnitTestsGroup) {
                               {'0', '0', '0', '0', '0', '0', '0'}
                       });
 
-        unitFactory = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy}, *map);
+        goldStash = new GoldStash();
+        unitFactory = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy}, *map, *goldStash);
 
-        unitFactoryForLoading = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy},*map);
+        unitFactoryForLoading = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy},*map, *goldStash);
 
         warUnit = dynamic_cast<WarUnit *>(unitFactory->createUnit(UnitType::Type::Knight,
                                                                   Owner{Owner::OwnerType::Player},
@@ -46,6 +47,7 @@ TEST_GROUP(UnitTestsGroup) {
         delete map;
         delete unitFactory;
         delete unitFactoryForLoading;
+        delete goldStash;
     }
 
     UnitFactory *unitFactory;
@@ -54,6 +56,7 @@ TEST_GROUP(UnitTestsGroup) {
     WorkerUnit *workerUnit;
     BaseUnit *baseUnit;
     Map *map;
+    GoldStash *goldStash;
 };
 
 TEST(UnitTestsGroup, correctIdAssignmentTest) {

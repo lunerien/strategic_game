@@ -12,7 +12,7 @@
 
 Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actualLocation,
                               Coordinates targetedLocationGlobalState, Coordinates targetLocation,
-                              int unitTypeState = 0, Unit::UnitState unitState = Unit::UnitState::Standing,
+                              int unitTypeState, Unit::UnitState unitState,
                               Stamina stamina, Id id) {
     int newId;
     if (id.ID == -1) {
@@ -31,7 +31,6 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
             if (stamina.stamina != 0) {
                 unitStamina = stamina.stamina;
             }
-            std::vector<Unit::AttackStat> attackStats;
             newUnit = new WorkerUnit(
                     {Id{newId}, Stamina{unitStamina}, AttackRange{1}, Speed{1}, Price{100}, BuildTime{2},
                      actualLocation, owner, UnitType{UnitType::Type::Worker},
@@ -39,8 +38,7 @@ Unit *UnitFactory::createUnit(UnitType::Type type, Owner owner, Coordinates actu
                      {{UnitType::Type::Knight, 5}, {UnitType::Type::Swordsman, 5}, {UnitType::Type::Archer, 5},
                       {UnitType::Type::Pikeman, 5}, {UnitType::Type::Catapult, 5}, {UnitType::Type::Ram, 5},
                       {UnitType::Type::Worker, 5}, {UnitType::Type::Base, 1}}, playersUnits.units,
-                     enemyUnits.units, unitState},
-                    static_cast<WorkerUnit::WorkerState>(unitTypeState));
+                     enemyUnits.units, unitState}, static_cast<WorkerUnit::WorkerState>(unitTypeState), goldStash);
             break;
         }
         case UnitType::Type::Knight: {
@@ -198,10 +196,21 @@ int UnitFactory::getNewId() {
     }
     int smallerId = playerUnitsId < opponentsUnitsId ? playerUnitsId : opponentsUnitsId;
     int biggerId = playerUnitsId > opponentsUnitsId ? playerUnitsId : opponentsUnitsId;
-    if (isIdAvailable(smallerId))
+    if (isIdAvailable(smallerId)) {
+        if (smallerId > 1000) {
+            throw std::out_of_range("Id is too big");
+        }
         return smallerId;
-    else if (isIdAvailable(biggerId))
+    } else if (isIdAvailable(biggerId)) {
+        if (biggerId > 1000) {
+            throw std::out_of_range("Id is too big");
+        }
         return biggerId;
+    }
+
+    if (biggerId + 1 > 1000) {
+        throw std::out_of_range("Id is too big");
+    }
     return biggerId + 1;
 }
 
@@ -242,7 +251,7 @@ UnitFactory::createBase(Owner owner, Coordinates actualLocation, Coordinates tar
               {UnitType::Type::Pikeman, 0}, {UnitType::Type::Catapult, 0}, {UnitType::Type::Ram, 0},
               {UnitType::Type::Worker, 0}, {UnitType::Type::Base, 0}}, playersUnits.units, enemyUnits.units, unitState},
             static_cast<BaseBuildingUnit::BaseBuildingState>(unitTypeState), std::move(actualUnitBeingCreatedType),
-            timeLeftToCreateUnit, *this);
+            timeLeftToCreateUnit, *this, goldStash);
     if (owner.getOwner() == Owner::OwnerType::Player) {
         playersUnits.units.push_back(newBase);
     } else {

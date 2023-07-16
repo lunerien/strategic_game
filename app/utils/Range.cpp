@@ -4,6 +4,7 @@
 
 #include "Range.h"
 #include <climits>
+#include <algorithm>
 
 Coordinates Range::closestToMove(Coordinates from, Coordinates to, int speed, Map *map, int distanceToOpponent,
                                  const std::vector<Unit *> &enemyUnits) {
@@ -51,5 +52,38 @@ bool Range::isEnemyInPosition(Coordinates position, std::vector<Unit *> enemyUni
             return true;
         }
     }
+    return false;
+}
+
+Unit *Range::getClosestEnemy(Coordinates from, std::vector<Unit *> enemyUnits) {
+    int minDistance = INT_MAX;
+    Unit *closestEnemy = nullptr;
+    for (auto &enemyUnit: enemyUnits) {
+        int actDistance = countDistance(from, enemyUnit->getActualLocation());
+        if (actDistance < minDistance) {
+            minDistance = actDistance;
+            closestEnemy = enemyUnit;
+        }
+    }
+    return closestEnemy;
+}
+
+Coordinates Range::getClosestMine(Coordinates from, Map &map) {
+    int minDistance = INT_MAX;
+    Coordinates closestMine = from;
+    for (auto &mine: map.getMines()) {
+        int actDistance = countDistance(from, mine);
+        if (actDistance < minDistance) {
+            minDistance = actDistance;
+            closestMine = mine;
+        }
+    }
+    return closestMine;
+}
+
+bool Range::isMineInPosition(Coordinates position, Map &map) {
+    std::any_of(map.getMines().begin(), map.getMines().end(), [&](Coordinates mine) {
+        return mine == position;
+    });
     return false;
 }

@@ -19,10 +19,10 @@ public:
     };
 
     BaseBuildingUnit(BaseUnit baseUnit, BaseBuildingState baseBuildingState, UnitType actualUnitBeingCreatedType,
-                     int timeLeftToCreateUnit, UnitFactory &unitFactory) :
+                     int timeLeftToCreateUnit, UnitFactory &unitFactory, GoldStash &goldStash) :
             BaseUnit(std::move(baseUnit)), unitFactory(unitFactory), baseBuildingState(baseBuildingState),
             actualUnitBeingCreatedType(std::move(actualUnitBeingCreatedType)),
-            timeLeftToCreateUnit(timeLeftToCreateUnit) {}
+            timeLeftToCreateUnit(timeLeftToCreateUnit),goldStash(goldStash) {}
 
     void update() override;
 
@@ -37,6 +37,7 @@ private:
     BaseBuildingState baseBuildingState;
     UnitType actualUnitBeingCreatedType;
     int timeLeftToCreateUnit;
+    GoldStash &goldStash;
 };
 
 

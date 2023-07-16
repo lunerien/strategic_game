@@ -31,6 +31,8 @@ Map::Map(const std::vector<std::vector<char>> map) : playerBaseCoordinates(0, 0)
                 this->playerBaseCoordinates = {x, y};
             } else if (sign == '2') {
                 this->enemyBaseCoordinates = {x, y};
+            } else if (sign == '6') {
+                this->mines.emplace_back(x, y);
             }
             y++;
         }
@@ -45,4 +47,8 @@ bool Map::isInMap(Coordinates coordinates) {
         return true;
     }
     return false;
+}
+
+std::vector<Coordinates> Map::getMines() {
+    return mines;
 }

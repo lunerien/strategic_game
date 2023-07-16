@@ -19,16 +19,18 @@ TEST_GROUP(RangeTestsGroup) {
                               {'0', '0', '0', '0', '0', '0', '0'},
                               {'0', '0', '0', '0', '0', '0', '0'}
                       });
-
-        unitFactory = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy}, *map);
+        goldStash = new GoldStash();
+        unitFactory = new UnitFactory(Owner{Owner::OwnerType::Player}, Owner{Owner::OwnerType::Enemy}, *map, *goldStash);
     }
 
     void teardown() {
         delete map;
         delete unitFactory;
+        delete goldStash;
     }
     UnitFactory *unitFactory;
     Map *map;
+    GoldStash *goldStash;
 };
 
 

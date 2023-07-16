@@ -19,7 +19,7 @@ add_executable(strategic_game
         app/utils/Range.cpp
         app/units/BaseUnit.cpp
         app/units/BaseBuildingUnit.cpp
-        )
+        app/GoldStash.cpp app/GoldStash.h)
 
 target_compile_options(strategic_game PUBLIC -Werror -Wall -Wextra -Wpedantic)
 set(TESTS_BUILD_DISCOVER OFF CACHE BOOL "CppUTest Switch off Build time test discover" FORCE)

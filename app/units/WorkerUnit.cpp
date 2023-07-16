@@ -3,9 +3,32 @@
 //
 
 #include "WorkerUnit.h"
+#include "../utils/Range.h"
 
 void WorkerUnit::update() {
+    switch (workerState) {
+        case WorkerState::GoingToMine: {
+            if (getDistanceToTarget() == 0) {
+                workerState = WorkerState::InMine;
+                break;
+            }
+            auto closestMine = Range::getClosestMine(BaseUnit::getActualLocation(), map);
+            if (Range::isEnemyInPosition(closestMine, unitsEnemy)) {
+                break;
+            }
+            move(closestMine);
+            break;
+        }
+        case WorkerState::InMine:
+            goldStash.mineGold();
+            break;
+        case WorkerState::FightingMine:
 
+            break;
+        case WorkerState::FightingBase:
+
+            break;
+    }
 }
 
 

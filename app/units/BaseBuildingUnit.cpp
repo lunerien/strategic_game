@@ -5,7 +5,20 @@
 #include "BaseBuildingUnit.h"
 
 void BaseBuildingUnit::update() {
-
+    switch (baseBuildingState) {
+        case BaseBuildingState::Idle:
+            // TODO: check if there is enough gold to create unit
+            // TODO: select unit to create
+            break;
+        case BaseBuildingState::CreatingUnit:
+            if (timeLeftToCreateUnit == 0) {
+                unitFactory.createUnit(actualUnitBeingCreatedType.getType(), BaseUnit::getOwner(), BaseUnit::getActualLocation(),
+                                       BaseUnit::getActualLocation(), BaseUnit::getActualLocation());
+            } else {
+                timeLeftToCreateUnit--;
+            }
+            break;
+    }
 }
 
 std::string BaseBuildingUnit::dumpObject() {
